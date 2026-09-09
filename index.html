@@ -9,21 +9,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/4.11.0/tf.min.js"></script>
 <style>
   :root{
-    --ink: #16221B;
-    --pine: #1E3B30;
-    --pine-deep: #142A22;
-    --parchment: #EFE6CE;
-    --parchment-2: #E4D8B8;
-    --brass: #C08A2E;
-    --brass-bright: #E0A83C;
-    --rust: #A64A2E;
-    --line: rgba(22,34,27,0.16);
+    --ink: #241209;
+    --pine: #6E3018;
+    --pine-deep: #2A1006;
+    --parchment: #F5E6C4;
+    --parchment-2: #EAD3A0;
+    --brass: #C15A1A;
+    --brass-bright: #F0973E;
+    --rust: #B23A1E;
+    --line: rgba(36,18,9,0.16);
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
   html,body{margin:0;padding:0;height:100%;}
   body{
     font-family:'Tajawal', sans-serif;
-    background: radial-gradient(circle at 30% 0%, #234737 0%, var(--pine-deep) 55%, #0F1F19 100%);
+    background: radial-gradient(circle at 30% 0%, #7A3A1E 0%, var(--pine-deep) 55%, #1C0B05 100%);
     color: var(--parchment);
     min-height:100vh;
     display:flex;
@@ -54,7 +54,7 @@
     background: conic-gradient(from 220deg, var(--brass-bright), var(--rust), var(--brass-bright));
     display:flex;align-items:center;justify-content:center;
     font-family:'Lalezar', sans-serif; font-size:18px; color:var(--pine-deep);
-    box-shadow: 0 0 0 2px rgba(224,168,60,0.25);
+    box-shadow: 0 0 0 2px rgba(240,151,62,0.25);
   }
   .brand-name{
     font-family:'Lalezar', sans-serif;
@@ -65,8 +65,8 @@
   .progress-chip{
     font-size:13px;
     font-weight:700;
-    background: rgba(192,138,46,0.16);
-    border:1px solid rgba(224,168,60,0.4);
+    background: rgba(193,90,26,0.16);
+    border:1px solid rgba(240,151,62,0.4);
     color: var(--brass-bright);
     padding:6px 12px;
     border-radius:999px;
@@ -78,19 +78,31 @@
 
   .hero{
     padding: 6px 2px 22px;
+    position:relative;
   }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-40px; right:-60px;
+    width:220px; height:220px;
+    background: radial-gradient(circle, rgba(240,151,62,0.35) 0%, rgba(240,151,62,0) 70%);
+    pointer-events:none;
+    z-index:0;
+  }
+  .hero h1, .hero p{ position:relative; z-index:1; }
   .hero h1{
     font-family:'Lalezar', sans-serif;
     font-size:30px;
     line-height:1.25;
     margin:0 0 8px;
     color: var(--parchment);
+    text-shadow: 0 2px 18px rgba(240,151,62,0.25);
   }
   .hero p{
     margin:0;
     font-size:14.5px;
     line-height:1.9;
-    color: rgba(239,230,206,0.72);
+    color: rgba(245,230,196,0.72);
     max-width:38ch;
   }
 
@@ -98,21 +110,22 @@
   .list{ display:flex; flex-direction:column; gap:12px; margin-top:4px; }
   .item-card{
     position:relative;
-    background: linear-gradient(180deg, rgba(239,230,206,0.06), rgba(239,230,206,0.02));
-    border:1px solid rgba(239,230,206,0.14);
+    background: linear-gradient(180deg, rgba(245,230,196,0.07), rgba(245,230,196,0.02));
+    border:1px solid rgba(245,230,196,0.14);
     border-radius:14px;
     padding:16px 16px;
     display:flex;
     align-items:center;
     gap:14px;
     cursor:pointer;
-    transition: transform .15s ease, border-color .15s ease;
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
     overflow:hidden;
+    box-shadow: 0 4px 14px rgba(20,8,3,0.25);
   }
   .item-card:active{ transform: scale(0.98); }
   .item-card.found{
-    border-color: rgba(224,168,60,0.55);
-    background: linear-gradient(180deg, rgba(224,168,60,0.14), rgba(224,168,60,0.03));
+    border-color: rgba(240,151,62,0.55);
+    background: linear-gradient(180deg, rgba(240,151,62,0.14), rgba(240,151,62,0.03));
   }
   .item-num{
     font-family:'Lalezar', sans-serif;
@@ -120,7 +133,7 @@
     width:40px; height:40px;
     border-radius:10px;
     display:flex; align-items:center; justify-content:center;
-    background: rgba(20,42,34,0.55);
+    background: rgba(42,16,6,0.55);
     border:1px solid var(--line);
     color: var(--brass-bright);
     flex-shrink:0;
@@ -131,10 +144,10 @@
   }
   .item-body{ flex:1; min-width:0; }
   .item-title{ font-weight:700; font-size:16px; margin:0 0 3px; color: var(--parchment); }
-  .item-clue{ font-size:12.5px; color: rgba(239,230,206,0.62); margin:0; line-height:1.6; }
+  .item-clue{ font-size:12.5px; color: rgba(245,230,196,0.62); margin:0; line-height:1.6; }
   .item-status{
     font-size:12px; font-weight:700; flex-shrink:0;
-    color: rgba(239,230,206,0.4);
+    color: rgba(245,230,196,0.4);
   }
   .item-card.found .item-status{ color: var(--brass-bright); }
 
@@ -167,15 +180,15 @@
   .btn-primary{
     background: linear-gradient(180deg, var(--brass-bright), var(--brass));
     color: var(--pine-deep);
-    box-shadow: 0 6px 18px rgba(192,138,46,0.35);
+    box-shadow: 0 6px 18px rgba(193,90,26,0.35);
   }
   .btn-primary:disabled{
     opacity:0.45; box-shadow:none; cursor:not-allowed;
   }
   .btn-ghost{
-    background: rgba(239,230,206,0.08);
+    background: rgba(245,230,196,0.08);
     color: var(--parchment);
-    border:1px solid rgba(239,230,206,0.18);
+    border:1px solid rgba(245,230,196,0.18);
   }
 
   /* ---------- Scan screen ---------- */
@@ -186,7 +199,7 @@
     color: var(--brass-bright);
     margin:2px 0 4px;
   }
-  .scan-sub{ font-size:13px; color: rgba(239,230,206,0.65); margin:0; }
+  .scan-sub{ font-size:13px; color: rgba(245,230,196,0.65); margin:0; }
 
   .viewfinder{
     position:relative;
@@ -194,8 +207,8 @@
     aspect-ratio: 3/4;
     border-radius:20px;
     overflow:hidden;
-    background:#0A140F;
-    border:1px solid rgba(239,230,206,0.15);
+    background:#150904;
+    border:1px solid rgba(245,230,196,0.15);
   }
   .viewfinder video{
     width:100%; height:100%; object-fit:cover;
@@ -213,35 +226,35 @@
 
   .vf-status{
     position:absolute; bottom:14px; left:14px; right:14px;
-    background: rgba(10,20,15,0.72);
+    background: rgba(21,9,4,0.72);
     backdrop-filter: blur(4px);
     border-radius:12px;
     padding:10px 12px;
   }
-  .vf-status.match{ background: rgba(192,138,46,0.85); }
-  .vf-label{ font-size:12px; font-weight:700; color: rgba(239,230,206,0.85); margin:0 0 6px; }
+  .vf-status.match{ background: rgba(193,90,26,0.85); }
+  .vf-label{ font-size:12px; font-weight:700; color: rgba(245,230,196,0.85); margin:0 0 6px; }
   .vf-status.match .vf-label{ color: var(--pine-deep); }
-  .meter{ height:6px; border-radius:99px; background: rgba(239,230,206,0.18); overflow:hidden; }
+  .meter{ height:6px; border-radius:99px; background: rgba(245,230,196,0.18); overflow:hidden; }
   .meter-fill{ height:100%; width:0%; background: var(--brass-bright); transition: width .12s ease; }
   .vf-status.match .meter-fill{ background: var(--pine-deep); }
 
   .camera-error{
-    padding:16px; font-size:13px; line-height:1.8; color: rgba(239,230,206,0.8);
-    background: rgba(166,74,46,0.18); border:1px solid rgba(166,74,46,0.4); border-radius:12px;
+    padding:16px; font-size:13px; line-height:1.8; color: rgba(245,230,196,0.8);
+    background: rgba(178,58,30,0.18); border:1px solid rgba(178,58,30,0.4); border-radius:12px;
     margin-top:14px;
   }
 
   /* ---------- Success overlay ---------- */
   .overlay{
     position:fixed; inset:0; z-index:50;
-    background: rgba(10,20,15,0.82);
+    background: rgba(21,9,4,0.82);
     display:none; align-items:center; justify-content:center;
     padding:24px;
   }
   .overlay.active{ display:flex; }
   .success-card{
     width:100%; max-width:380px;
-    background: linear-gradient(180deg, #F1E6C9, var(--parchment-2));
+    background: linear-gradient(180deg, #F7E8C8, var(--parchment-2));
     border-radius:20px;
     padding:30px 24px 26px;
     text-align:center;
@@ -258,7 +271,7 @@
   .success-card h2{
     font-family:'Lalezar', sans-serif; font-size:24px; margin:0 0 8px;
   }
-  .success-card p{ font-size:14px; line-height:1.8; margin:0 0 20px; color: rgba(20,42,34,0.75); }
+  .success-card p{ font-size:14px; line-height:1.8; margin:0 0 20px; color: rgba(42,16,6,0.75); }
 
   /* ---------- Finish screen ---------- */
   .finish-wrap{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px 12px; }
@@ -268,36 +281,36 @@
     display:flex; align-items:center; justify-content:center;
     font-family:'Lalezar', sans-serif; font-size:44px; color:#fff;
     margin-bottom:20px;
-    box-shadow: 0 10px 30px rgba(192,138,46,0.35);
+    box-shadow: 0 10px 30px rgba(193,90,26,0.35);
   }
   .finish-wrap h1{ font-family:'Lalezar', sans-serif; font-size:28px; margin:0 0 10px; }
-  .finish-wrap p{ font-size:14.5px; color: rgba(239,230,206,0.72); line-height:1.9; max-width:32ch; margin:0 0 26px; }
+  .finish-wrap p{ font-size:14.5px; color: rgba(245,230,196,0.72); line-height:1.9; max-width:32ch; margin:0 0 26px; }
 
   .loading-note{
-    font-size:12.5px; color: rgba(239,230,206,0.55); text-align:center; margin-top:10px;
+    font-size:12.5px; color: rgba(245,230,196,0.55); text-align:center; margin-top:10px;
   }
 
   /* ---------- Timer + start setup ---------- */
   .timer-chip{ font-family:'Lalezar', sans-serif; font-size:14px; letter-spacing:0.5px; }
-  .timer-chip.warn{ background: rgba(166,74,46,0.22); border-color: rgba(166,74,46,0.55); color: #E9A98D; }
+  .timer-chip.warn{ background: rgba(178,58,30,0.22); border-color: rgba(178,58,30,0.55); color: #F2AD82; }
 
   .setup-card{
-    background: rgba(239,230,206,0.06);
-    border:1px solid rgba(239,230,206,0.14);
+    background: rgba(245,230,196,0.06);
+    border:1px solid rgba(245,230,196,0.14);
     border-radius:14px;
     padding:16px;
     margin-bottom:20px;
   }
-  .setup-label{ font-size:13px; font-weight:700; color: rgba(239,230,206,0.75); margin:0 0 10px; }
+  .setup-label{ font-size:13px; font-weight:700; color: rgba(245,230,196,0.75); margin:0 0 10px; }
   .duration-row{ display:flex; gap:8px; }
   .duration-chip{
     flex:1;
     text-align:center;
     padding:10px 6px;
     border-radius:10px;
-    border:1px solid rgba(239,230,206,0.2);
-    background: rgba(20,42,34,0.4);
-    color: rgba(239,230,206,0.8);
+    border:1px solid rgba(245,230,196,0.2);
+    background: rgba(42,16,6,0.4);
+    color: rgba(245,230,196,0.8);
     font-weight:700;
     font-size:13.5px;
     cursor:pointer;
@@ -311,7 +324,7 @@
   /* ---------- Time up screen ---------- */
   .timeup-badge{
     width:110px; height:110px; border-radius:50%;
-    background: linear-gradient(180deg, var(--rust), #7A3620);
+    background: linear-gradient(180deg, var(--rust), #8A2E12);
     display:flex; align-items:center; justify-content:center;
     font-family:'Lalezar', sans-serif; font-size:40px; color:#fff;
     margin-bottom:20px;
